@@ -1,0 +1,362 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header text-center mb-5">
+    <h1 class="display-5 fw-bold mb-3">Pending Book Reviews</h1>
+    <div class="divider mx-auto" style="width: 100px; height: 3px; background: linear-gradient(to right, #d4af37, #1a472a);"></div>
+    <p class="lead">Preserving Knowledge with Wisdom and Justice</p>
+  </div>
+
+  {% if books %}
+  <div class="review-list">
+    {% for book in books %}
+    <div class="review-card mb-5">
+      <!-- Book Header -->
+      <div class="book-header">
+        <div class="book-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h2>{{ book.title }}</h2>
+      </div>
+      
+      <!-- Book Details -->
+      <div class="book-details">
+        <div class="detail-item">
+          <i class="fas fa-user"></i>
+          <span><strong>Uploaded by:</strong> {{ book.uploaded_by.username }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-folder"></i>
+          <span><strong>Category:</strong> {{ book.category }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-user-tie"></i>
+          <span><strong>Scholar:</strong> {{ book.scholar }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-calendar"></i>
+          <span><strong>Uploaded At:</strong> {{ book.upload_date }}</span>
+        </div>
+      </div>
+      
+      <!-- Book Description -->
+      <div class="book-description">
+        <h4><i class="fas fa-align-left me-2"></i>Description</h4>
+        <p>{{ book.description }}</p>
+      </div>
+      
+      <!-- PDF Preview -->
+      <div class="pdf-preview text-center mb-4">
+        <a href="{{ book.pdf_file.url }}" target="_blank" class="pdf-btn">
+          <i class="fas fa-file-pdf me-2"></i> Preview PDF Document
+        </a>
+      </div>
+      
+      <!-- Review Form -->
+      <div class="review-form">
+        <form method="post" action="{% url 'review_book' book.id %}">
+          {% csrf_token %}
+          
+          <div class="form-group mb-4">
+            <label class="form-label">
+              <i class="fas fa-check-circle me-2"></i> Review Decision
+            </label>
+            <div class="status-select">
+              <select name="status" class="form-select">
+                <option value="approved">✅ Approve for Publication</option>
+                <option value="rejected">❌ Reject Submission</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group mb-4">
+            <label class="form-label">
+              <i class="fas fa-comment me-2"></i> Feedback (Required if rejecting)
+            </label>
+            <textarea name="rejection_reason" rows="3" class="form-textarea" placeholder="Provide constructive feedback to the contributor..."></textarea>
+          </div>
+          
+          <div class="form-actions text-center">
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-save me-2"></i> Save Review Decision
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state text-center py-5">
+    <div class="empty-icon mb-4">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3>All Books Reviewed</h3>
+    <p class="lead">No books currently awaiting review. Great work!</p>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  :root {
+    --islamic-green: #1a472a;
+    --islamic-gold: #d4af37;
+    --islamic-cream: #f8f5e9;
+    --islamic-dark: #0d2c1e;
+  }
+  
+  .dashboard-header {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--islamic-gold);
+  }
+  
+  .review-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9e2d0;
+    padding: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  .book-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--islamic-gold);
+  }
+  
+  .book-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .book-icon i {
+    color: var(--islamic-gold);
+    font-size: 1.8rem;
+  }
+  
+  .book-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: rgba(248, 245, 233, 0.5);
+    border-radius: 8px;
+  }
+  
+  .detail-item i {
+    color: var(--islamic-green);
+    font-size: 1.2rem;
+    margin-right: 10px;
+    width: 25px;
+    text-align: center;
+  }
+  
+  .book-description {
+    background: rgba(248, 245, 233, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .book-description h4 {
+    color: var(--islamic-dark);
+    border-bottom: 1px solid var(--islamic-gold);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .pdf-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+  }
+  
+  .pdf-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 71, 42, 0.4);
+    color: var(--islamic-gold);
+  }
+  
+  .review-form {
+    background: rgba(248, 245, 233, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .form-label {
+    font-weight: 600;
+    color: var(--islamic-dark);
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .status-select {
+    position: relative;
+  }
+  
+  .status-select::after {
+    content: "▼";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--islamic-green);
+    pointer-events: none;
+  }
+  
+  .form-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9e2d0;
+    border-radius: 8px;
+    background: white;
+    appearance: none;
+    font-size: 1rem;
+  }
+  
+  .form-select:focus {
+    border-color: var(--islamic-gold);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+  
+  .form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9e2d0;
+    border-radius: 8px;
+    background: white;
+    min-height: 120px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  
+  .form-textarea:focus {
+    border-color: var(--islamic-gold);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+  
+  .submit-btn {
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 35px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 71, 42, 0.4);
+    color: var(--islamic-gold);
+  }
+  
+  .empty-state {
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--islamic-gold);
+  }
+  
+  .empty-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .empty-icon i {
+    color: var(--islamic-gold);
+    font-size: 3rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .book-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .book-icon {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+    
+    .review-card {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .book-details {
+      grid-template-columns: 1fr;
+    }
+    
+    .dashboard-header {
+      padding: 15px;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .review-card {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  .review-card:nth-child(1) { animation-delay: 0.1s; }
+  .review-card:nth-child(2) { animation-delay: 0.2s; }
+  .review-card:nth-child(3) { animation-delay: 0.3s; }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock %}

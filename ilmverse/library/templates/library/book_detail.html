@@ -1,0 +1,273 @@
+{% extends 'library/base.html' %}
+{% block content %}
+
+<div class="container py-5">
+  <!-- Book Cover and Basic Info -->
+  <div class="row mb-5" data-aos="fade-up">
+    
+      
+      <!-- Book Title -->
+      <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold text-dark mb-3">{{ book.title }}</h1>
+        <div class="divider mx-auto" style="width: 100px; height: 3px; background: linear-gradient(to right, #d4af37, #1a472a);"></div>
+      </div>
+      
+      <!-- Book Details -->
+      <div class="book-details-card p-4 rounded-lg shadow-sm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-item mb-3">
+              <div class="detail-icon">
+                <i class="fas fa-user-tie text-primary fa-2x"></i>
+              </div>
+              <div class="detail-content">
+                <h5 class="text-muted mb-1">Scholar</h5>
+                <p class="h5">{{ book.scholar.name }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="detail-item mb-3">
+              <div class="detail-icon">
+                <i class="fas fa-folder-open text-success fa-2x"></i>
+              </div>
+              <div class="detail-content">
+                <h5 class="text-muted mb-1">Category</h5>
+                <p class="h5">{{ book.category.name }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="detail-item mb-3">
+              <div class="detail-icon">
+                <i class="fas fa-user text-info fa-2x"></i>
+              </div>
+              <div class="detail-content">
+                <h5 class="text-muted mb-1">Uploaded By</h5>
+                <p class="h5">{{ book.uploaded_by.username }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="detail-item mb-3">
+              <div class="detail-icon">
+                <i class="fas fa-calendar-alt text-warning fa-2x"></i>
+              </div>
+              <div class="detail-content">
+                <h5 class="text-muted mb-1">Date</h5>
+                <p class="h5">{{ book.upload_date }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Download Button -->
+        <div class="text-center mt-4 pt-3">
+          <a href="{{ book.pdf_file.url }}" target="_blank" class="btn btn-lg download-btn">
+            <i class="fas fa-file-download me-2"></i> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Book Description -->
+  <div class="row" data-aos="fade-up">
+    <div class="col-12">
+      <div class="book-description-card p-4 rounded-lg shadow-sm">
+        <h3 class="text-center mb-4 position-relative">
+          <span class="section-title">Book Description</span>
+        </h3>
+        <div class="description-content p-3">
+          <p class="lead">{{ book.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+<style>
+  :root {
+    --islamic-green: #1a472a;
+    --islamic-gold: #d4af37;
+    --islamic-cream: #f8f5e9;
+    --islamic-dark: #0d2c1e;
+  }
+  
+  body {
+    background-color: #f8f5e9;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231a472a' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    font-family: 'Amiri', serif;
+  }
+  
+  .arabic-calligraphy {
+    font-family: 'Scheherazade New', serif;
+    color: var(--islamic-green);
+  }
+  
+  .islamic-frame {
+    border: 3px solid var(--islamic-gold);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .islamic-frame::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid var(--islamic-green);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+  
+  .text-gold {
+    color: var(--islamic-gold);
+  }
+  
+  .book-details-card {
+    background-color: white;
+    border: 2px solid var(--islamic-gold);
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: rgba(248, 245, 233, 0.5);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .detail-item:hover {
+    background: rgba(218, 215, 203, 0.5);
+    transform: translateY(-3px);
+  }
+  
+  .detail-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  
+  .detail-icon i {
+    color: var(--islamic-gold);
+  }
+  
+  .download-btn {
+    background: linear-gradient(135deg, var(--islamic-green) 0%, var(--islamic-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 35px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .download-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 71, 42, 0.4);
+  }
+  
+  .download-btn:hover::before {
+    left: 100%;
+  }
+  
+  .book-description-card {
+    background-color: white;
+    border: 2px solid var(--islamic-gold);
+  }
+  
+  .section-title {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    background: var(--islamic-cream);
+    z-index: 1;
+  }
+  
+  .section-title::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--islamic-gold), var(--islamic-green), var(--islamic-gold));
+    z-index: -1;
+  }
+  
+  .description-content {
+    background: rgba(248, 245, 233, 0.5);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .related-book-card {
+    background-color: white;
+    border: 1px solid #e9e2d0;
+    transition: all 0.3s ease;
+  }
+  
+  .related-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--islamic-gold);
+  }
+  
+  .view-btn {
+    background: linear-gradient(to right, var(--islamic-gold), #b8932b);
+    color: var(--islamic-dark);
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(142, 108, 70, 0.3);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  [data-aos="fade-up"] {
+    animation: fadeIn 0.8s ease forwards;
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock %}

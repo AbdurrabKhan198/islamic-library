@@ -1,0 +1,322 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Explore the Library - IlmVerse{% endblock %}
+
+{% block head %}
+<style>
+  /* Enhanced Islamic Styling */
+  body {
+    background-color: #f8f5e9;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231a472a' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    font-family: 'Amiri', serif;
+  }
+  
+  .islamic-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e9e2d0;
+  }
+  
+  .islamic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: #d4af37;
+  }
+  
+  .category-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a472a 0%, #0d2c1e 100%);
+    color: #d4af37;
+    font-size: 2.5rem;
+    margin: 0 auto 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(26, 71, 42, 0.2);
+    border: 3px solid #f8f5e9;
+  }
+  
+  .category-circle:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 20px rgba(26, 71, 42, 0.3);
+    border-color: #d4af37;
+  }
+  
+  .category-name {
+    color: #1a472a;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  
+  .category-link:hover .category-name {
+    background-color: #e9f5eb;
+    color: #0d2c1e;
+    transform: translateY(-3px);
+  }
+  
+  .book-row {
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+  }
+  
+  .book-row:hover {
+    background-color: #f0ede4;
+    border-left: 3px solid #d4af37;
+    transform: translateX(5px);
+  }
+  
+  .islamic-btn {
+    background: linear-gradient(to right, #1a472a, #0d2c1e);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(26, 71, 42, 0.25);
+  }
+  
+  .islamic-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(26, 71, 42, 0.35);
+    background: linear-gradient(to right, #0d2c1e, #1a472a);
+  }
+  
+  .view-btn {
+    background: linear-gradient(to right, #d4af37, #b8932b);
+    color: #1a472a;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(142, 108, 70, 0.3);
+  }
+  
+  .arabic-text {
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.8rem;
+    color: #1a472a;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .islamic-border {
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+  }
+  
+  .table-header {
+    background: linear-gradient(to right, #1a472a, #0d2c1e);
+    color: #f8f5e9;
+    font-weight: bold;
+  }
+  
+  .search-box {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title-animation {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .title-animation::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #d4af37, #1a472a);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.5s ease;
+  }
+  
+  .title-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+  }
+  
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  
+  .book-icon {
+    transition: transform 0.5s ease;
+  }
+  
+  .book-row:hover .book-icon {
+    transform: rotate(10deg) scale(1.2);
+    color: #d4af37;
+  }
+  
+  .scholar-icon {
+    transition: transform 0.5s ease;
+  }
+  
+  .book-row:hover .scholar-icon {
+    transform: scale(1.3);
+    color: #1a472a;
+  }
+  
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <!-- Quranic Verse -->
+  <div class="text-center mb-5 animate-fade-in">
+   
+
+  <h2 class="mb-5 text-center title-animation animate-fade-in delay-100">
+    <i class="fas fa-book-quran floating me-2"></i> Explore the Library of Islamic Knowledge
+  </h2>
+
+  <!-- 🌙 Category Circles -->
+  <div class="row justify-content-center mb-5 animate-fade-in delay-200" data-aos="zoom-in">
+    {% for c in categories %}
+    <div class="col-auto text-center mb-3">
+      <a href="?category={{ c.id }}" class="text-decoration-none">
+        <div class="category-circle">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="fw-semibold category-name">{{ c.name }}</div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- 🔍 Search & Filters -->
+  <form method="get" class="row g-3 align-items-center mb-5 search-box animate-fade-in delay-300" data-aos="fade-right">
+    <div class="col-md-4">
+      <label class="form-label fw-bold text-primary">
+        <i class="fas fa-search me-2"></i> Search Title
+      </label>
+      <input type="text" name="q" value="{{ query }}" class="form-control islamic-border" placeholder="e.g. Tawheed, Seerah...">
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label fw-bold text-primary">
+        <i class="fas fa-user-tie me-2"></i> Scholar
+      </label>
+      <select name="scholar" class="form-select islamic-border">
+        <option value="">-- All --</option>
+        {% for s in scholars %}
+          <option value="{{ s.id }}" {% if s.id|stringformat:"s" == selected_scholar %}selected{% endif %}>{{ s.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label fw-bold text-primary">
+        <i class="fas fa-folder-open me-2"></i> Category
+      </label>
+      <select name="category" class="form-select islamic-border">
+        <option value="">-- All --</option>
+        {% for c in categories %}
+          <option value="{{ c.id }}" {% if c.id|stringformat:"s" == selected_category %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+      <button type="submit" class="islamic-btn w-100">Apply</button>
+    </div>
+  </form>
+
+  <!-- 📚 Book Table -->
+  <div class="table-responsive animate-fade-in delay-400" data-aos="fade-up">
+    <table class="table table-hover align-middle">
+      <thead class="table-header">
+        <tr>
+          <th scope="col" class="py-3">
+            <i class="fas fa-book me-2"></i> Title
+          </th>
+          <th scope="col" class="py-3">
+            <i class="fas fa-user-tie me-2"></i> Scholar
+          </th>
+          <th scope="col" class="py-3">
+            <i class="fas fa-folder me-2"></i> Category
+          </th>
+          <th scope="col" class="py-3">
+            <i class="fas fa-user me-2"></i> Uploaded By
+          </th>
+          <th scope="col" class="py-3 text-center">
+            <i class="fas fa-file-pdf me-2"></i> PDF
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+          <tr class="book-row">
+            <td>
+              <a href="{% url 'book_detail' book.id %}" class="text-decoration-none text-dark">
+                <i class="book-icon fas fa-book me-2"></i> {{ book.title }}
+              </a>
+            </td>
+            <td>
+              <i class="scholar-icon fas fa-user-tie me-2"></i> {{ book.scholar.name }}
+            </td>
+            <td>{{ book.category.name }}</td>
+            <td>{{ book.uploaded_by.username }}</td>
+            <td class="text-center">
+              <a href="{{ book.pdf_file.url }}" target="_blank" class="view-btn">
+                <i class="fas fa-eye me-1"></i> View
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr class="book-row">
+            <td colspan="5" class="text-center py-4">
+              <i class="fas fa-book-open me-2"></i> No books found matching your search.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+{% endblock %}
